@@ -22,32 +22,13 @@ This project simulates a real-world data engineering workflow by:
 
 ## 🏗️ Architecture
 
-```text
-Raw CSV Files
-      │
-      ▼
-  Extraction
-      │
-      ▼
- Transformation
-      │
-      ├── Remove Duplicates
-      ├── Handle Missing Values
-      ├── Data Type Conversion
-      └── Feature Engineering
-      │
-      ▼
- PostgreSQL Staging Table
-      │
-      ▼
- Bulk Load (COPY)
-      │
-      ▼
- Merge into Production Table
-      │
-      ▼
- Logging & Monitoring
-```
+<p align="center">
+  <img src="images/project_architecture.jpg" alt="ETL Pipeline Architecture" width="900">
+</p>
+
+<p align="center">
+  <em>Production-inspired ETL workflow using Python, Pandas, and PostgreSQL.</em>
+</p>
 
 ---
 
