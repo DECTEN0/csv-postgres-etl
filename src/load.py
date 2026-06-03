@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import os
 import psycopg2
 
+# Ensure environment variables are loaded if they aren't already in pipeline.py
+load_dotenv()
 
 def load(df):
 
@@ -28,6 +30,32 @@ def load(df):
             "total_amount",
             "order_date"
         ]
+
+        # --- STEP 1: AUTOMATICALLY CREATE TABLES IF THEY DON'T EXIST ---
+        # This prevents the "relation does not exist" error entirely.
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS sales (
+                order_id VARCHAR(50) PRIMARY KEY,
+                customer_name VARCHAR(255),
+                product VARCHAR(255),
+                quantity INTEGER,
+                price NUMERIC(10, 2),
+                total_amount NUMERIC(10, 2),
+                order_date TIMESTAMP
+            );
+        """)
+
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS sales_staging (
+                order_id VARCHAR(50),
+                customer_name VARCHAR(255),
+                product VARCHAR(255),
+                quantity INTEGER,
+                price NUMERIC(10, 2),
+                total_amount NUMERIC(10, 2),
+                order_date TIMESTAMP
+            );
+        """)
 
         # Clear staging table
         cur.execute("TRUNCATE TABLE sales_staging;")

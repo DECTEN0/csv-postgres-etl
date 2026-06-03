@@ -1,5 +1,8 @@
 import logging
 
+from dotenv import load_dotenv
+load_dotenv()  # This loads the variables from your .env file   
+
 from extract import extract
 from transform import transform
 from load import load
